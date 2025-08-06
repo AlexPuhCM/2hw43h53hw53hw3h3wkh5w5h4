@@ -1,11 +1,98 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Redirecting...</title>
-    <script>
-      window.location.replace("CollisionEstimateFile.pdf");
-    </script>
-  </head>
-  <body style="margin:0; background:black;"></body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Two-Page PDF Viewer</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #222;
+      color: white;
+      text-align: center;
+      margin: 2em;
+    }
+    .pages {
+      display: flex;
+      justify-content: center;
+      gap: 1em;
+      margin-bottom: 1em;
+    }
+    .pages img {
+      width: 45vw;
+      height: auto;
+      box-shadow: 0 0 10px #000;
+      border: 1px solid #444;
+    }
+    button {
+      padding: 0.5em 1em;
+      font-size: 1.2em;
+      margin: 0 1em;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.4;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Two-Page Viewer</h1>
+
+  <div class="pages">
+    <img id="page1" src="" alt="Page 1" />
+    <img id="page2" src="" alt="Page 2" />
+  </div>
+
+  <div>
+    <button id="prevBtn">← Prev</button>
+    <button id="nextBtn">Next →</button>
+  </div>
+
+  <script>
+    // List your pages here (assumes jpg files named like Page1.jpg, Page2.jpg, etc.)
+    const pages = [
+      'CollisionEstimateFile_Page1.jpg',
+      'CollisionEstimateFile_Page2.jpg',
+      'CollisionEstimateFile_Page3.jpg',
+      'CollisionEstimateFile_Page4.jpg',
+      // Add more pages as needed
+    ];
+
+    let currentIndex = 0; // Index of first page in the current view (zero-based)
+
+    const page1Img = document.getElementById('page1');
+    const page2Img = document.getElementById('page2');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+
+    function updatePages() {
+      page1Img.src = pages[currentIndex];
+      page2Img.src = pages[currentIndex + 1] || ''; // Blank if no next page
+
+      // Disable prev button if at start
+      prevBtn.disabled = currentIndex === 0;
+      // Disable next button if at or past the last page pair
+      nextBtn.disabled = currentIndex + 2 >= pages.length;
+    }
+
+    prevBtn.onclick = () => {
+      if (currentIndex > 0) {
+        currentIndex -= 2;
+        updatePages();
+      }
+    };
+
+    nextBtn.onclick = () => {
+      if (currentIndex + 2 < pages.length) {
+        currentIndex += 2;
+        updatePages();
+      }
+    };
+
+    // Initial display
+    updatePages();
+  </script>
+
+</body>
 </html>
