@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Two-Page PDF Viewer</title>
   <style>
     body {
       font-family: sans-serif;
@@ -33,11 +32,20 @@
       opacity: 0.4;
       cursor: default;
     }
+    .instructions {
+      background: #444;
+      color: #ddd;
+      padding: 1em;
+      margin-top: 2em;
+      border-radius: 8px;
+      font-size: 1.1em;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
   </style>
 </head>
 <body>
-
-  <h1>Two-Page Viewer</h1>
 
   <div class="pages">
     <img id="page1" src="" alt="Page 1" />
@@ -49,18 +57,20 @@
     <button id="nextBtn">Next →</button>
   </div>
 
+  <div class="instructions">
+    Use the ← and → arrow keys to navigate pages.<br>
+    (Buttons may not work in VR, so keyboard is recommended.)
+  </div>
+
   <script>
-    // List your pages here (assumes jpg files named like Page1.jpg, Page2.jpg, etc.)
     const pages = [
       'CollisionEstimateFile_Page1.jpg',
       'CollisionEstimateFile_Page2.jpg',
       'CollisionEstimateFile_Page3.jpg',
       'CollisionEstimateFile_Page4.jpg',
-      // Add more pages as needed
     ];
 
-    let currentIndex = 0; // Index of first page in the current view (zero-based)
-
+    let currentIndex = 0;
     const page1Img = document.getElementById('page1');
     const page2Img = document.getElementById('page2');
     const prevBtn = document.getElementById('prevBtn');
@@ -68,11 +78,8 @@
 
     function updatePages() {
       page1Img.src = pages[currentIndex];
-      page2Img.src = pages[currentIndex + 1] || ''; // Blank if no next page
-
-      // Disable prev button if at start
+      page2Img.src = pages[currentIndex + 1] || '';
       prevBtn.disabled = currentIndex === 0;
-      // Disable next button if at or past the last page pair
       nextBtn.disabled = currentIndex + 2 >= pages.length;
     }
 
@@ -90,9 +97,12 @@
       }
     };
 
-    // Initial display
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') nextBtn.click();
+      if (e.key === 'ArrowLeft') prevBtn.click();
+    });
+
     updatePages();
   </script>
-
 </body>
 </html>
