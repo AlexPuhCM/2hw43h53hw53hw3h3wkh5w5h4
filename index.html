@@ -23,9 +23,9 @@
       border: 1px solid #444;
     }
     button {
-      padding: 0.5em 1em;
-      font-size: 1.2em;
-      margin: 0 1em;
+      padding: 0.3em 0.6em;
+      font-size: 1em;
+      margin: 0 0.5em;
       cursor: pointer;
     }
     button:disabled {
@@ -58,7 +58,7 @@
   </div>
 
   <div class="instructions">
-    Use the ← and → arrow keys to navigate pages.<br>
+    Use the Q (previous) and E (next) keys to navigate pages.<br>
     (Buttons may not work in VR, so keyboard is recommended.)
   </div>
 
@@ -97,9 +97,10 @@
       }
     };
 
+    // Bind Q and E keys
     window.addEventListener('keydown', (e) => {
-      if (e.key === 'ArrowRight') nextBtn.click();
-      if (e.key === 'ArrowLeft') prevBtn.click();
+      if (e.key.toLowerCase() === 'e') nextBtn.click();
+      if (e.key.toLowerCase() === 'q') prevBtn.click();
     });
 
     updatePages();
