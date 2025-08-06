@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>PDF Viewer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.12/pdfobject.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      font-family: sans-serif;
+    }
+    #pdf-viewer {
+      width: 100%;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="pdf-viewer">Your browser does not support PDF viewing. 
+    <a href="File.pdf" target="_blank">Download PDF</a>
+  </div>
+
+  <script>
+    PDFObject.embed("CollisionEstimateFile.pdf", "#pdf-viewer");
+  </script>
+
+</body>
+</html>
